@@ -1,6 +1,7 @@
 const express = require('express');
 const mysql = require('mysql');
 const dotenv = require('dotenv');
+const path = require('path');
 
 dotenv.config({path: './config/.env'})
 // Load database credentials from env, otherwise, revert to defaults.
@@ -24,12 +25,15 @@ db.connect((err) => {
         
         // Create a new instance of express called app.
         const app = express();
+        const publicDirectory = path.join(__dirname, './public');
+        app.use(express.static(publicDirectory));
+
+        app.set('view engine', 'hbs');
         
         // Only start registering routes whenever the database connection is successful.
         // Obviously this will look much different once the code has been modulated.
         app.get('/', (req, res) => {
-            // Give the user a classic old hello world welcoming!
-            res.send('<h1>Hello world!</h1>');
+            res.render('index');
         });
 
         // Make the express app listen to the specified port.
@@ -45,4 +49,3 @@ db.connect((err) => {
         // Because an express app was never opened, there is no need to now close it! Hoorah!
     }
 });
-

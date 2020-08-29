@@ -1,0 +1,27 @@
+nav{
+    color: white;
+    padding: 30px 60px;
+    background-color: #254F6E;
+    display: flex;
+    justify-content: space-between;
+}
+nav h4{
+    font-size: 60px;    
+}
+nav ul{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+nav li{
+    list-style: none;
+}
+nav li a{
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 4px 8px;
+}
+nav li a:hover{
+    color: lightblue;
+}
