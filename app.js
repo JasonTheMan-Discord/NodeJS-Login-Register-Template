@@ -19,33 +19,34 @@ const port = process.env.PORT || 2000;
 console.log("> Attempting to connect to MySQL database.");
 
 db.connect((err) => {
-    if(!err) {
-        // Database connection was successful.
-        console.log("> Connected to MySQL database successfully.");
-        
-        // Create a new instance of express called app.
-        const app = express();
-        const publicDirectory = path.join(__dirname, './public');
-        app.use(express.static(publicDirectory));
-
-        app.set('view engine', 'hbs');
-        
-        // Only start registering routes whenever the database connection is successful.
-        // Obviously this will look much different once the code has been modulated.
-        app.get('/', (req, res) => {
-            res.render('index');
-        });
-
-        // Make the express app listen to the specified port.
-        app.listen(port, () => {
-            console.log(`Server started on port ${port}.`);
-        });
-    } else {
+    if (err) {
         // Connection failed. Therefore, we alert the user.
         
         console.log("> Failed to connect to MySQL database.");
         console.error(err);
         
         // Because an express app was never opened, there is no need to now close it! Hoorah!
+        return;
     }
+    
+    // Database connection was successful.
+    console.log("> Connected to MySQL database successfully.");
+
+    // Create a new instance of express called app.
+    const app = express();
+    const publicDirectory = path.join(__dirname, './public');
+    app.use(express.static(publicDirectory));
+
+    app.set('view engine', 'hbs');
+
+    // Only start registering routes whenever the database connection is successful.
+    // Obviously this will look much different once the code has been modulated.
+    app.get('/', (req, res) => {
+        res.render('index');
+    });
+
+    // Make the express app listen to the specified port.
+    app.listen(port, () => {
+        console.log(`Server started on port ${port}.`);
+    });
 });
