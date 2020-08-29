@@ -1,6 +1,8 @@
 const express = require('express');
 const mysql = require('mysql');
+const dotenv = require('dotenv');
 
+dotenv.config({path: './config/.env'})
 // Load database credentials from env, otherwise, revert to defaults.
 const db = mysql.createConnection({
     host: process.env.MYSQL_HOST || 'localhost',
